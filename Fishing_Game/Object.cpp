@@ -7,6 +7,8 @@
 #include "Object.h"
 
 
+std::vector<Object*> Object::objs;
+
 Object::Object()
 {
 	objs.push_back(this);
