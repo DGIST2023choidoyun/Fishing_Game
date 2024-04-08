@@ -30,3 +30,13 @@
 *.exe
 *.out
 *.app
+
+# excpt
+/.vs
+/.x64
+*.sln
+*.ico
+*.vcxproj
+*.filters
+*.user
+Fishing_Game/x64
