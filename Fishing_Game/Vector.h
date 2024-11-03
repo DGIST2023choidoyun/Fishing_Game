@@ -14,6 +14,7 @@
 #define VECTOR2_Y_I		VECTOR2<int>(0, 1)
 #define PTR				*
 
+
 template <typename T> struct DOUBLE_PAIR {
 	T value[2] = { 0, 0 };
 };
@@ -123,7 +124,7 @@ template <typename T> struct VECTOR2 {
 	}
 	VECTOR2<T> operator/(double d) const
 	{
-		return VECTOR2<T>{ x / d, y / d };
+		return VECTOR2<T>{ (T)(x / d), (T)(y / d) };
 	}
 	VECTOR2<T> operator/=(double d)
 	{
@@ -135,6 +136,11 @@ template <typename T> struct VECTOR2 {
 	{
 		return sqrt(x * x + y * y);
 	}
+	//double (*Abs)(void) = Magnitude;
+	double Distance(const VECTOR2<T> v) const
+	{
+		return ((*this) - v).Magnitude();
+	}
 	VECTOR2<T> Opposite() const
 	{
 		return VECTOR2<T>{-x, -y};
@@ -142,6 +148,11 @@ template <typename T> struct VECTOR2 {
 	VECTOR2<T> Normal() const
 	{
 		return VECTOR2<T>{-y, x};
+	}
+	VECTOR2<T> Normalized() const
+	{
+		double mag = (*this).Magnitude();
+		return (*this) / mag;
 	}
 	VECTOR2<T> Direction() const
 	{
@@ -178,3 +189,7 @@ template <typename T> struct VECTOR2 {
 		return true;
 	}
 };
+
+typedef VECTOR2<int> vi;
+typedef VECTOR2<float> vf;
+typedef VECTOR2<double> vd;

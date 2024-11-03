@@ -1,35 +1,31 @@
-#include "stdafx.h"
-#include <iostream>
-#include <vector>
-
-#include "Sprite.h"
 
 #include "Object.h"
 
+#include "ObjectManager.h"
 
-std::vector<Object*> Object::objs;
+//std::vector<Object*> Object::objs;
 
 Object::Object()
 {
-	objs.push_back(this);
+	ObjectManager::Instance()->New(this);
 
-	position = VECTOR2<float>(0, 0);
+	position = VECTOR2_ZERO_F;
 	mass = 1;
 	inv_mass = 1;
 }
 
-Object::Object(const VECTOR2<float> pos, const float m)
+Object::Object(const vf& pos, const float m)
 {
-	objs.push_back(this);
+	ObjectManager::Instance()->New(this);
 
 	position = pos;
 	mass = m;
 	inv_mass = 1 / m;
 }
 
-Object::Object(const VECTOR2<float> pos, Sprite* sp)
+Object::Object(const vf& pos, Sprite* sp)
 {
-	objs.push_back(this);
+	ObjectManager::Instance()->New(this);
 
 	position = pos;
 	sprite = sp;
@@ -54,18 +50,18 @@ void Object::SetMass(float m)
 	}
 }
 
-void Object::Simulating(double dt)
+void Object::Simulating(const double dt)
 {
 	Physics(dt);
 	Process(dt);
 }
 
-void Object::SetForce(const VECTOR2<float> f)
+void Object::SetForce(const vf& f)
 {
 	accel = f * inv_mass;
 }
 
-void Object::ApplyForce(const VECTOR2<float> f)
+void Object::ApplyForce(const vf& f)
 {
 	accel += f * inv_mass;
 }
@@ -79,10 +75,10 @@ Object::~Object()
 {
 	if (sprite)
 		delete sprite;
-	objs.erase(std::find(objs.begin(), objs.end(), this));
+	ObjectManager::Instance()->Delete(this);
 }
 
-void Object::Physics(double dt)
+void Object::Physics(const double dt)
 {
 	accel.y += gravityScale * dt;
 	velocity += accel * dt;
@@ -94,7 +90,7 @@ void Object::Draw(HDC hdc)
 	OnScr(hdc);
 }
 
-void Object::Process(double dt)
+void Object::Process(const double dt)
 {
 
 }

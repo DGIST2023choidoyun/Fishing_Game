@@ -1,20 +1,3 @@
-#include "stdafx.h"
-#include "Resource.h"
-#include <vector>
-#include <cmath>
-
-
-#include "Vector.h"
-
-#include "Sprite.h"
-#include "PixelSprite.h"
-
-#include "Object.h"
-#include "Cloud.h"
-
-#include "Graphics.h"
-
-
 #include "WindowClass.h"
 
 
@@ -74,6 +57,8 @@ int WindowClass::Run()
 	QueryPerformanceFrequency(&_second);
 	QueryPerformanceCounter(&_time);
 
+	ObjectManager::Instance()->Initialize();
+
 	while (true)
 	{
 		if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
@@ -93,9 +78,10 @@ int WindowClass::Run()
 
 void WindowClass::Simulating()
 {
-	for (auto iter = Object::objs.begin(); iter != Object::objs.end(); iter++)
+	auto objs = ObjectManager::Instance()->objs;
+	for (auto iter = objs.begin(); iter != objs.end(); iter++)
 	{
-		(*iter)->Simulating(_deltaTime);
+		(*iter).get()->Simulating(_deltaTime);
 	}
 }
 
@@ -157,7 +143,7 @@ LRESULT WindowClass::AppProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
 #pragma endregion
 
 		_graphics->DrawBackground(memoryDC, 0, 0, _scrArea.right, _scrArea.bottom);
-		_graphics->DrawObjects(memoryDC, Object::objs);
+		_graphics->DrawObjects(memoryDC);
 
 		BitBlt(hdc, 0, 0, _scrArea.right, _scrArea.bottom, memoryDC, 0, 0, SRCCOPY);
 

@@ -2,9 +2,23 @@
 //#include <iostream> // For vector
 
 //#include <vector> // For vector
+#include "stdafx.h"
+#include "Resource.h"
+#include <vector>
+#include <cmath>
 
-class Graphics;
-class Object;
+
+#include "Vector.h"
+
+#include "Sprite.h"
+#include "PixelSprite.h"
+
+#include "Object.h"
+#include "Cloud.h"
+
+#include "Graphics.h"
+
+#include "ObjectManager.h"
 
 class WindowClass : public Singleton<WindowClass>
 {

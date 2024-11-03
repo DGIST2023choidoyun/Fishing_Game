@@ -1,7 +1,9 @@
 #pragma once
 
-class Sprite;
+#include "stdafx.h"
 #include "Vector.h"
+
+#include "Sprite.h"
 
 
 class PixelSprite : public Sprite
@@ -9,14 +11,14 @@ class PixelSprite : public Sprite
 private:
 	
 	int pts;
-	VECTOR2<int> PTR vertex;
+	vi PTR vertex;
 	int width;
 	HPEN framePen;
 	HBRUSH brush;
 public:
 	PixelSprite();
-	PixelSprite(VECTOR2<float> pos, int num, VECTOR2<int> PTR v, int w, COLORREF c);
-	virtual void Draw(HDC hdc, const VECTOR2<float> objPos) override;
+	PixelSprite(vf pos, int num, vi PTR v, int w, COLORREF c);
+	virtual void Draw(HDC hdc, const vf objPos) override;
 	~PixelSprite();
 };
 

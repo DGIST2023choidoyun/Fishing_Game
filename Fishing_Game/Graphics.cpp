@@ -1,10 +1,6 @@
-#include "stdafx.h"
-#include <iostream>
-#include <vector>
-
-#include "Object.h"
-
 #include "Graphics.h"
+
+#include "ObjectManager.h"
 
 
 void Graphics::DrawBackground(HDC hdc, int left, int top, int right, int bottom)
@@ -38,10 +34,9 @@ void Graphics::DrawBackground(HDC hdc, int left, int top, int right, int bottom)
 	Ellipse(hdc, 80, 171, 85, 176);
 }
 
-void Graphics::DrawObjects(HDC hdc, std::vector<Object*> objs)
+void Graphics::DrawObjects(HDC hdc)
 {
-	
-	for (auto iter = objs.begin(); iter != objs.end(); iter++)
+	for (auto iter = ObjectManager::Instance()->Iterator(BEGIN); iter != ObjectManager::Instance()->Iterator(END); iter++)
 	{
 		(*iter)->Draw(hdc);
 	}

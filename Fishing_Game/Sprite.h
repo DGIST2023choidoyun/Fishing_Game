@@ -1,14 +1,14 @@
 #pragma once
-
+#include "stdafx.h"
 #include "Vector.h"
 
 
 class Sprite
 {
 protected:
-	VECTOR2<float> position;
+	vf position;
 public:
 	Sprite();
-	virtual void Draw(HDC hdc, const VECTOR2<float> objPos) = 0;
+	virtual void Draw(HDC hdc, const vf objPos) = 0;
 };
 

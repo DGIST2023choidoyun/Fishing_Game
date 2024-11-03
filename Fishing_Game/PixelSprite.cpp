@@ -1,26 +1,23 @@
-#include "stdafx.h"
 
-
-#include "Sprite.h"
 #include "PixelSprite.h"
 
 PixelSprite::PixelSprite()
 {
 	position.x = position.y = 0;
 	pts = 1;
-	vertex = new VECTOR2<int>;
-	vertex[0] = VECTOR2<int>(0, 0);
+	vertex = new vi;
+	vertex[0] = vi(0, 0);
 	width = 1;
 }
 
-PixelSprite::PixelSprite(VECTOR2<float> pos, int num, VECTOR2<int> PTR v, int w, COLORREF c)
+PixelSprite::PixelSprite(vf pos, int num, vi PTR v, int w, COLORREF c)
 {
 	position = pos;
 	
 	if (num <= 0)
 		num = 1;
 	pts = num;
-	vertex = new VECTOR2<int>[num];
+	vertex = new vi[num];
 
 	for (int i = 0; i < num; i++)
 		vertex[i] = v[i];
@@ -31,7 +28,7 @@ PixelSprite::PixelSprite(VECTOR2<float> pos, int num, VECTOR2<int> PTR v, int w,
 
 }
 
-void PixelSprite::Draw(HDC hdc, const VECTOR2<float> objPos)
+void PixelSprite::Draw(HDC hdc, const vf objPos)
 {
 	HPEN oldPen = (HPEN)SelectObject(hdc, framePen);
 	HBRUSH oldBrush = (HBRUSH)SelectObject(hdc, brush);
